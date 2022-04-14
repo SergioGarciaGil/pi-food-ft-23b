@@ -5,7 +5,7 @@ const getDbInfo = async () => {
   return await Recipe.findAll({
     include: {
       model: Diet,
-      atributes: ["title"],
+      atributes: ["name"],
       through: {
         attributes: [],
       },

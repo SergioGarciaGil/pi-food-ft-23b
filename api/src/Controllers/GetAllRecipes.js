@@ -1,6 +1,6 @@
-const getTotal = require("../Controllers/Services/getTotal");
+const getTotal = require("./Services/getTotal");
 
-const getAllRecipe = async (req, res) => {
+const getAllRecipes = async (req, res) => {
   const title = req.params.title; //preunta si hay un query por title
   const recipesTotal = await getTotal();
   if (title) {
@@ -14,4 +14,4 @@ const getAllRecipe = async (req, res) => {
     res.status(200).send(recipesTotal);
   }
 };
-module.exports = getAllRecipe;
+module.exports = getAllRecipes;

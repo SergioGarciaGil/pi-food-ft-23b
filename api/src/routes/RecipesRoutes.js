@@ -1,7 +1,10 @@
 const express = require("express");
-const getAllRecipe = require("../Controllers/GetAllRecipes");
+const getAllRecipes = require("../Controllers/GetAllRecipes");
+const getById = require("./../Controllers/getById");
 
 const router = express.Router();
-router.get("/", getAllRecipe);
+
+router.get("/", getAllRecipes);
+router.get("/:id", getById);
 
 module.exports = router;

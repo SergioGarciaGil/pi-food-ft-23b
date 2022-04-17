@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div>
       <Link to="/recipe">Crear receta</Link>
-      <h1>Aguante</h1>
+
       <button onClick={(e) => handleClick(e)}>
         Volver a cargar todas las recetas
       </button>
@@ -55,20 +55,22 @@ export default function Home() {
         </select>
       </div>
 
-      {allRecipes?.map((el) => {
-        return (
-          <div key={el.id}>
-            {/* <Link to={"home" + el.id}> */}
-            <Card
-              key={el.id}
-              title={el.title}
-              image={el.image}
-              tipos={el.diets}
-            />
-            {/* </Link> */}
-          </div>
-        );
-      })}
+      {allRecipes &&
+        allRecipes?.map((el) => {
+          return (
+            <div key={el.id}>
+              {/* <Link to={"home" + el.id}> */}
+              <Card
+                key={el.id}
+                title={el.title}
+                image={el.image}
+                diets={el.diet}
+              />
+
+              {/* </Link> */}
+            </div>
+          );
+        })}
     </div>
   );
 }

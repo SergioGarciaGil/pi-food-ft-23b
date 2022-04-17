@@ -6,6 +6,7 @@ const typesRouter = require("./TypesRoutes");
 const router = express.Router();
 
 router.use("/recipes", recipesRouter);
+
 router.use("/types", typesRouter);
 
 module.exports = router;

@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={style.container}>
       <div>
         <div className={style.navbar}>
           <Link to="/recipe">

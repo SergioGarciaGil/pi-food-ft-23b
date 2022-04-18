@@ -6,7 +6,8 @@
     padding: 20px 20px;
     border-radius: 20px;
     transition: transform 0.1s;
-    background: rgb(252, 251, 251);
+    background-image: url("https:/i.pinimg.com/564x/31/f9/3d/31f93dd0763cfbee71568000ae0c3859.jpg");
+    
     padding-bottom: 2px;
    margin:80px 10px 5px 30px;
    
@@ -20,17 +21,20 @@
 .card:hover {
     transform: scale(1.05);
 }
+
 .img{
     
-    width: 200px;
+    width: 205px;
     height: 160px;
+    border-radius: 20px;
     object-fit: fill
 }
 
 .linkTitle {
+
     margin-top: 10px;
     text-align: center;
-    color:rgba(23, 8, 8, 0.432);
+    color:white;
     text-decoration-line: none;
    
   

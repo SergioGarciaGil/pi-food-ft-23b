@@ -37,7 +37,7 @@ export default function Home() {
   }
 
   return (
-    <div className={style.mainContainer}>
+    <div>
       <div className={style.container}>
         <div className={style.fixed}>
           <div className={style.navbar}>
@@ -82,7 +82,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div></div>
+
         <div className={style.mainCard}>
           {currentRecipes &&
             currentRecipes.map((el) => {

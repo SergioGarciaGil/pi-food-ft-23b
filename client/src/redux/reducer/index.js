@@ -29,14 +29,14 @@ function rootReducer(state = initialState, action) {
         action.payload === "asc"
           ? state.recipes.sort((a, b) => {
               //ordena de menor a mayor
-              if (a.name < b.name) return -1;
-              if (a.name > b.name) return 1;
+              if (a.title < b.title) return -1;
+              if (a.title > b.title) return 1;
               return 0;
             })
           : state.recipes.sort((a, b) => {
               //ordena de mayor a menor
-              if (a.name > b.name) return -1;
-              if (a.name < b.name) return 1;
+              if (a.title > b.title) return -1;
+              if (a.title < b.title) return 1;
               return 0;
             });
       return {

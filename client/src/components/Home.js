@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, filterCreated } from "../redux/actions";
+import { getRecipes, filterCreated, orderByName } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import style from "./Home.module.css";
@@ -38,6 +38,14 @@ export default function Home() {
     dispatch(getRecipes());
   }
 
+  const [orden, setOrden] = useState("");
+  function HandleSortName(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrden(`ordenado ${e.target.value}`);
+  }
+
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
@@ -67,7 +75,7 @@ export default function Home() {
               </select>
             </div>
             <div className={style.contentSelect}>
-              <select>
+              <select onClick={(e) => HandleSortName(e)}>
                 <option value="">Orden alfabetico</option>
                 <option value="asc">Asc</option>
                 <option value="desc">Desc</option>

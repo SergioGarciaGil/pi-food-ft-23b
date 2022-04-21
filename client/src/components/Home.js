@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes } from "../redux/actions";
+import { getRecipes, filterCreated } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import style from "./Home.module.css";
@@ -11,6 +11,7 @@ import Paginado from "./Paginado";
 export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
+  // const allDiets = useSelector((state) => state.diets);
 
   const [currentPage, setCurrentPage] = useState(1); //creamos un stado local para setear la paginacion o pagina actual
   const [recipesPerPage, setRecipesPerPage] = useState(8); //creamos un stado local para setear la cantidad de recetas por pagina
@@ -29,11 +30,18 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getRecipes());
+    // dispatch(getTypeOfDiet());
   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getRecipes());
+  }
+
+  function handleFilterCreated(e) {
+    e.preventDefault();
+    dispatch(filterCreated(e.target.value));
+    setCurrentPage(1);
   }
 
   return (
@@ -73,13 +81,15 @@ export default function Home() {
               </select>
             </div>
             <div className={style.contentSelect}>
-              <select>
-                <option value="">filtrar creados</option>
-                <option value="all">ALL</option>
-                <option value="create">Create</option>
-                <option value="api"></option>
+              <select onChange={(e) => handleFilterCreated(e)}>
+                <option value="" hidden>
+                  filtrar creados
+                </option>
+                <option value="all">Todos</option>
+                <option value="created">Creados</option>
               </select>
             </div>
+            <select></select>
           </div>
         </div>
 

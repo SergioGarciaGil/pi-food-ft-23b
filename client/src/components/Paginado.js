@@ -4,15 +4,10 @@ import style from "./Paginado.module.css";
 export default function Paginado({ recipesPerPage, allRecipes, paginado }) {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(allRecipes / recipesPerPage); i++) {
-    {
-      console.log(i);
-    }
     //math.ceil redondea todos las recetas sobre todas las recetas que tengo por  pagina
     pageNumbers.push(i);
   }
-  {
-    console.log(recipesPerPage);
-  }
+
   return (
     <div>
       <nav>

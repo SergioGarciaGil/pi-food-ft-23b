@@ -1,12 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipes, filterCreated, orderByName } from "../redux/actions";
+import {
+  getRecipes,
+  filterCreated,
+  orderByName,
+  orderByLikes,
+} from "../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import style from "./Home.module.css";
 import LinkTitle from "./Card.module.css";
 import Paginado from "./Paginado";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -52,6 +58,17 @@ export default function Home() {
     setCurrentPage(1);
   }
 
+  const [orderLike, setOrderLike] = useState("");
+  function handleOrderByLikes(e) {
+    e.preventDefault();
+    dispatch(orderByLikes(e.target.value));
+    setCurrentPage(1);
+    setOrderLike(`ordenado ${e.target.value}`);
+  }
+  {
+    console.log();
+  }
+
   return (
     <div>
       <div className={style.container}>
@@ -67,6 +84,9 @@ export default function Home() {
             >
               All recipes
             </button>
+            <div>
+              <SearchBar />
+            </div>
             <div className={style.contentSelect}>
               <select>
                 <option value="">Buscar receta por nombre</option>
@@ -82,10 +102,10 @@ export default function Home() {
               </select>
             </div>
             <div className={style.contentSelect}>
-              <select>
-                <option value="">Ordenar por puntuacion</option>
-                <option value="mayor">Mayor</option>
-                <option value="menor">Menor</option>
+              <select onClick={(e) => handleOrderByLikes(e)}>
+                <option value="">Ordenar por Score</option>
+                <option value="asc">Highest Score</option>
+                <option value="desc">Lowest Score</option>
               </select>
             </div>
             <div className={style.contentSelect}>
@@ -113,12 +133,14 @@ export default function Home() {
                       title={el.title}
                       image={el.image}
                       diets={el.diets.join(", ")}
+                      likes={el.aggregateLikes}
                     />
                   </Link>
                 </div>
               );
             })}
         </div>
+
         <Paginado
           recipesPerPage={recipesPerPage}
           allRecipes={allRecipes.length}

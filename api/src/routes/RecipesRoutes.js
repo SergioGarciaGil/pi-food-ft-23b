@@ -6,6 +6,7 @@ const createRecipe = require("./../Controllers/createRecipe");
 const router = express.Router();
 
 router.get("/", getAllRecipes);
+
 router.post("/", createRecipe);
 router.get("/:id", getById);
 

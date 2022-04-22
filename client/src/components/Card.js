@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Card.module.css";
 
-export default function Card({ title, image, diets }) {
+export default function Card({ title, image, diets, likes }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.card}>
@@ -13,6 +13,7 @@ export default function Card({ title, image, diets }) {
           width="200px"
           height="250px"
         />
+        <p>Likes {likes}</p>
         <h6 className={style.linkTitle}> {diets}</h6>
       </div>
     </div>

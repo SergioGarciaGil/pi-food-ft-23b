@@ -1,20 +1,26 @@
 const getTotal = require("./Services/getTotal");
 
 const getAllRecipes = async (req, res) => {
-  const title = req.query.title; //preunta si hay un query por title
+  const title = req.query.title;
+  const allData = await getTotal();
 
-  let recipesTotal = await getTotal();
+  try {
+    if (title) {
+      let recipeTitle = await allData.filter((recipe) =>
+        recipe.title
+          .toLowerCase()
+          .split(" ")
+          .join("")
+          .includes(title.toLowerCase().split(" ").join(""))
+      );
 
-  if (title) {
-    const recipeTitle = await recipesTotal.filter((el) => {
-      el.title.toLowerCase().includes(title.toLowerCase());
-    });
-
-    recipeTitle.length //si hay una receta con ese titulo
-      ? res.status(200).send(recipeTitle)
-      : res.status(404).send("No hay recetas con ese titulo");
-  } else {
-    res.status(200).send(recipesTotal);
+      recipeTitle.length != 0
+        ? res.status(200).json(recipeTitle)
+        : res.status(404).send("Recipe does not exist");
+    } else res.status(200).json(allData);
+  } catch (err) {
+    res.json({ err: message });
   }
 };
+
 module.exports = getAllRecipes;

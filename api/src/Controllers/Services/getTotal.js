@@ -7,4 +7,5 @@ const getTotal = async () => {
   const infoTotal = apiInfo.concat(dbInfo);
   return infoTotal;
 };
+
 module.exports = getTotal;

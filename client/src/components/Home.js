@@ -65,9 +65,6 @@ export default function Home() {
     setCurrentPage(1);
     setOrderLike(`ordenado ${e.target.value}`);
   }
-  {
-    console.log();
-  }
 
   return (
     <div>

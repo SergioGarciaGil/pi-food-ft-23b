@@ -21,7 +21,7 @@ export function getNameRecipes(title) {
   return async function (dispatch) {
     try {
       const json = await axios.get(
-        "http://localhost:3001/recipes?name=" + title
+        "http://localhost:3001/recipes?title=" + title
       );
       return dispatch({
         type: GET_NAME_RECIPES,

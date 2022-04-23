@@ -15,6 +15,7 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getNameRecipes(title)); //aqui le paso el title que esta escribiendo el usuario
+    setTitle("");
   }
   return (
     <div>

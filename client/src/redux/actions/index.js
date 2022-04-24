@@ -5,7 +5,9 @@ import {
   ORDER_BY_NAME,
   GET_NAME_RECIPES,
   ORDER_BY_LIKES,
-  GET_DETAILS,
+  GET_DETAIL,
+  GET_TYPE_OF_DIET,
+  FILTER_BY_DIETS,
 } from "./types";
 
 export function getRecipes() {
@@ -32,6 +34,21 @@ export function getNameRecipes(title) {
     }
   };
 }
+export function getTypeOfDiet() {
+  return async function (dispatch) {
+    const json = await axios.get("http://localhost:3001/types");
+    return dispatch({
+      type: GET_TYPE_OF_DIET,
+      payload: json.data,
+    });
+  };
+}
+export function filterByDiets(payload) {
+  return {
+    type: FILTER_BY_DIETS,
+    payload,
+  };
+}
 export function orderByLikes(payload) {
   return {
     type: ORDER_BY_LIKES,
@@ -55,9 +72,9 @@ export function orderByName(payload) {
 export function getDetails(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`http://localhost:3001/dogs/${id}`);
+      let json = await axios.get(`http://localhost:3001/recipes/${id}`);
       return dispatch({
-        type: GET_DETAILS,
+        type: GET_DETAIL,
         payload: json.data,
       });
     } catch (error) {
@@ -65,6 +82,7 @@ export function getDetails(id) {
     }
   };
 }
+
 // export function getTypeOfDiet() {
 //   return async function (dispatch) {
 //     const json = await axios.get("http://localhost:3001/types");

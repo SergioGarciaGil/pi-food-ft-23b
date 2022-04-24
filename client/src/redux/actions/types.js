@@ -4,4 +4,5 @@ export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const GET_NAME_RECIPES = "GET_NAME_RECIPES";
 export const ORDER_BY_LIKES = "ORDER_BY_LIKES";
-export const GET_DETAILS = "GET_DETAILS";
+export const GET_DETAIL = "GET_DETAIL";
+export const FILTER_BY_DIETS = "FILTER_BY_DIETS";

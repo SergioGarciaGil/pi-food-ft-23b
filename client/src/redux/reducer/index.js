@@ -1,17 +1,19 @@
-import { OrderByLikes } from "../actions";
 import {
   GET_RECIPES,
   FILTER_CREATED,
   GET_NAME_RECIPES,
   ORDER_BY_NAME,
   ORDER_BY_LIKES,
-  GET_DETAILS,
+  GET_DETAIL,
+  GET_TYPE_OF_DIET,
+  FILTER_BY_DIETS,
 } from "../actions/types";
 
 const initialState = {
   recipes: [],
   filterRecipes: [],
-  details: [],
+  detail: [],
+  types: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -22,6 +24,22 @@ function rootReducer(state = initialState, action) {
         recipes: action.payload,
         filterRecipes: action.payload,
       };
+    case GET_TYPE_OF_DIET:
+      return {
+        ...state,
+        types: action.payload,
+      };
+    case FILTER_BY_DIETS:
+      const allDiets = state.filterRecipes;
+      const dietsFiltered =
+        action.payload === "all"
+          ? allDiets
+          : allDiets.filter((e) => e.diets?.includes(action.payload));
+      return {
+        ...state,
+        recipes: dietsFiltered,
+      };
+
     case FILTER_CREATED:
       const allRecipeCreated = state.filterRecipes;
       const createdFilter =
@@ -85,10 +103,10 @@ function rootReducer(state = initialState, action) {
         recipes: orderLikes,
       };
 
-    case GET_DETAILS:
+    case GET_DETAIL:
       return {
         ...state,
-        details: action.payload,
+        detail: action.payload,
       };
 
     default:

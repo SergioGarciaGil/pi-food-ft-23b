@@ -6,6 +6,8 @@ import {
   filterCreated,
   orderByName,
   orderByLikes,
+  getTypeOfDiet,
+  filterByDiets,
 } from "../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -17,7 +19,7 @@ import SearchBar from "./SearchBar";
 export default function Home() {
   const dispatch = useDispatch();
   const allRecipes = useSelector((state) => state.recipes);
-  // const allDiets = useSelector((state) => state.diets);
+  const allDiets = useSelector((state) => state.types);
 
   const [currentPage, setCurrentPage] = useState(1); //creamos un stado local para setear la paginacion o pagina actual
   const [recipesPerPage, setRecipesPerPage] = useState(8); //creamos un stado local para setear la cantidad de recetas por pagina
@@ -36,7 +38,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getRecipes());
-    // dispatch(getTypeOfDiet());
+    dispatch(getTypeOfDiet());
   }, [dispatch]);
 
   function handleClick(e) {
@@ -50,6 +52,11 @@ export default function Home() {
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
     setOrden(`ordenado ${e.target.value}`);
+  }
+  function handleFilterDiets(e) {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(filterByDiets(e.target.value));
   }
 
   function handleFilterCreated(e) {
@@ -85,10 +92,27 @@ export default function Home() {
               <SearchBar />
             </div>
             <div className={style.contentSelect}>
-              <select>
-                <option value="">Buscar receta por nombre</option>
-                <option value="a-z">A-Z</option>
-                <option value="z-a">Z-A</option>
+              <select onChange={(e) => handleFilterDiets(e)}>
+                <option key={0} value="ALL">
+                  Types of diets
+                </option>
+                {allDiets
+                  ?.sort(function (a, b) {
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    if (b.name > a.name) {
+                      return -1;
+                    }
+                    return 0;
+                  })
+                  .map((e) => {
+                    return (
+                      <option key={e.id} value={e.name}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className={style.contentSelect}>

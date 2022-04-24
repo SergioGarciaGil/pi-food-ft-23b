@@ -147,7 +147,7 @@ export default function Home() {
             currentRecipes.map((el) => {
               return (
                 <div key={el.id}>
-                  <Link to={"home" + el.id} className={LinkTitle.linkTitle}>
+                  <Link to={"/detail/" + el.id} className={LinkTitle.linkTitle}>
                     <Card
                       id={el.id}
                       key={el.id}

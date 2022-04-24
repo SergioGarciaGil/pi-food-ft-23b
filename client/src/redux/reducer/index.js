@@ -13,7 +13,6 @@ const initialState = {
   recipes: [],
   filterRecipes: [],
   detail: [],
-  types: [],
 };
 
 function rootReducer(state = initialState, action) {

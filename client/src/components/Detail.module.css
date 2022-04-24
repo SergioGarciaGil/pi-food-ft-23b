@@ -1,21 +1,21 @@
 .containerPrincipal {
+    padding:50px;
+    width:100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
-  
-    
-    
-
-    border:5px solid #f30000;; 
-    width: 100%;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1kO5VsRYB3ZqdeRUykkoP0d1OgL24cGG2Q&usqp=CAU");
+   
+  border:5px solid #f30000;; 
+    width: 95%;
     height: 100%;
 
 }
 .img {
+    margin-top: 50px;
     position: relative;
     top: 20px;
-    left: 240px;
+    left: 280px;
     width: 50%;
     height: 50%;
     pointer-events: none;
@@ -41,7 +41,36 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        
+}
+.titleText{
+    
+   width: 250px;
+    color: rgb(246, 110, 14);
+    
 }
 
-/* .container{
-    background-color: #361a1a;} */
+p{
+   
+
+    font-size: 25px;
+    width: 100%;
+  
+}
+.puntuacion{
+    position: relative;
+    bottom: 250px;
+    color: rgb(246, 110, 14)
+}
+.btnVolver{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(246, 110, 14);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    position:relative;
+    left: 500px;
+}
+

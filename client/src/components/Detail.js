@@ -41,57 +41,61 @@ export default function Detail(props) {
                 />
 
                 <div>
-                  <h2>
-                    {!detailRecipe[0].aggregateLikes !== 0 ? (
-                      <h3>Score: {detailRecipe[0].aggregateLikes}</h3>
-                    ) : (
-                      <h3>Score: - </h3>
-                    )}
-                  </h2>
-                  <h2>
-                    {detailRecipe[0].healthScore !== 0 ? (
-                      <h3>Health Score: {detailRecipe[0].healthScore}</h3>
-                    ) : (
-                      <h3>Health Score: - </h3>
-                    )}
-                  </h2>
-                  <h2>
-                    Types of diets:
-                    {/* <p>{detailRecipe[0].diets.join(", ")}</p> */}
+                  <div className={""}>
+                    <div className={style.puntuacion}>
+                      <h2 className={style.score}>
+                        <p>
+                          {!detailRecipe[0].aggregateLikes !== 0 ? (
+                            <h3>Score: {detailRecipe[0].aggregateLikes}</h3>
+                          ) : (
+                            "no hay likes"
+                          )}
+                        </p>
+                      </h2>
+                      <h2>
+                        <p>
+                          {detailRecipe[0].healthScore !== 0 ? (
+                            <h3>Health Score: {detailRecipe[0].healthScore}</h3>
+                          ) : (
+                            "no hay health score"
+                          )}
+                        </p>
+                      </h2>
+                    </div>
+                  </div>
+                  <div className={style.fondoType}>
+                    <h2 className={style.titleText}>
+                      Types of diets:
+                      {/* <p>{detailRecipe[0].diets.join(", ")}</p> */}
+                    </h2>
                     <p>
                       {!detailRecipe[0].createdInDb
                         ? detailRecipe[0].diets.join(", ")
                         : "No diet info"}
                     </p>
-                  </h2>
-                  <h3>
-                    Type of Dish:
+                    <h2 className={style.titleText}>Type of Dish:</h2>
                     <p>
                       {!detailRecipe[0].createdDb
                         ? detailRecipe[0].dishTypes.join(", ")
                         : "No dish types"}
                     </p>
-                  </h3>
-                  <h2>
-                    Summary:
-                    <p>
-                      {!detailRecipe[0].createdInDb
-                        ? detailRecipe[0].summary.replace(/<[^>]*>?/g)
-                        : "no summary"}
-                    </p>
-                  </h2>
-                  <h2>
-                    Instructions:
-                    <p>
-                      {detailRecipe[0].analyzedInstructions[0].steps.map(
-                        (e) => e.step
-                      )}
-                    </p>
-                  </h2>
+                  </div>
+                  <h2 className={style.titleText}>Summary:</h2>
+                  <p className={""}>
+                    {!detailRecipe[0].createdInDb
+                      ? detailRecipe[0].summary.replace(/<[^>]*>?/g)
+                      : "no summary"}
+                  </p>
+                  <h2 className={style.titleText}>Instructions:</h2>
+                  <p>
+                    {detailRecipe[0].analyzedInstructions[0].steps.map(
+                      (e) => e.step
+                    )}
+                  </p>
                 </div>
 
                 <Link to="/home">
-                  <button>Volver</button>
+                  <button className={style.btnVolver}>Volver</button>
                 </Link>
               </div>
             )

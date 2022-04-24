@@ -11,6 +11,7 @@ const getApiInfo = async () => {
       id: el.id,
       title: el.title,
       summary: el.summary,
+      dishTypes: el.dishTypes.map((el) => el),
       aggregateLikes: el.aggregateLikes,
       healthScore: el.healthScore,
       analyzedInstructions: el.analyzedInstructions.map((el) => el),

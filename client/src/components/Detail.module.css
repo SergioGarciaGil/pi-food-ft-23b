@@ -1,9 +1,8 @@
 .containerPrincipal {
-    padding:50px;
-    width:100px;
+    padding:50px;;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
     background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE1kO5VsRYB3ZqdeRUykkoP0d1OgL24cGG2Q&usqp=CAU");
    
   border:5px solid #f30000;; 
@@ -13,27 +12,26 @@
 }
 .img {
     margin-top: 50px;
+    ;
     position: relative;
-    top: 20px;
-    left: 280px;
-    width: 50%;
-    height: 50%;
+    top: 30px;
+    left: 300px; 
     pointer-events: none;
     box-shadow: 0px 0px 10px rgb(0, 0, 0);
     border-radius: 20px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 650px;
     height: 320px;
-    background-color: rgb(245, 238, 233);
+    background-color: red;
     
 }
 .titleDetail {
-        margin-top:20px;
+        /* margin-top:10px; */
         margin-bottom: 15px;
-        color: rgb(246, 110, 14);
+        color: red;
         width: 50%;
         box-shadow: 0px 0px 10px rgb(0, 0, 0);
         border-radius: 20px;
@@ -44,33 +42,26 @@
         
 }
 .titleText{
-    
-   width: 250px;
-    color: rgb(246, 110, 14);
-    
+    color: red;    
 }
 
 p{
-   
-
-    font-size: 25px;
-    width: 100%;
-  
+     font-size: 25px; 
 }
 .puntuacion{
     position: relative;
     bottom: 250px;
-    color: rgb(246, 110, 14)
+    color: red;
 }
 .btnVolver{
     width: 100px;
     height: 40px;
-    background-color: rgb(246, 110, 14);
+    background-color: red;
     border: none;
     border-radius: 20px;
     color: white;
     font-size: 20px;
     position:relative;
-    left: 500px;
+    left: 250px;
 }
 

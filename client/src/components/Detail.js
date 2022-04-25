@@ -19,7 +19,7 @@ export default function Detail(props) {
 
   return (
     <div className={style.containerPrincipal}>
-      <div className={style.container}>
+      <div>
         <div>
           {detailRecipe.length === 0 ? (
             <p>Loading...o</p>
@@ -27,10 +27,7 @@ export default function Detail(props) {
             detailRecipe.length > 0 && (
               <div>
                 <div>
-                  <h1 className={style.titleDetail}>
-                    {" "}
-                    {detailRecipe[0].title}
-                  </h1>
+                  <h1 className={style.titleDetail}>{detailRecipe[0].title}</h1>
                 </div>
                 <img
                   className={style.img}
@@ -45,20 +42,16 @@ export default function Detail(props) {
                     <div className={style.puntuacion}>
                       <h2 className={style.score}>
                         <p>
-                          {!detailRecipe[0].aggregateLikes !== 0 ? (
-                            <h3>Score: {detailRecipe[0].aggregateLikes}</h3>
-                          ) : (
-                            "no hay likes"
-                          )}
+                          <h3>Score: {detailRecipe[0].aggregateLikes}</h3>
                         </p>
                       </h2>
                       <h2>
                         <p>
-                          {detailRecipe[0].healthScore !== 0 ? (
-                            <h3>Health Score: {detailRecipe[0].healthScore}</h3>
-                          ) : (
-                            "no hay health score"
-                          )}
+                          {
+                            <h3>
+                              Health Score: {detailRecipe[0].healthScore + " "}
+                            </h3>
+                          }
                         </p>
                       </h2>
                     </div>
@@ -71,26 +64,29 @@ export default function Detail(props) {
                     <p>
                       {!detailRecipe[0].createdInDb
                         ? detailRecipe[0].diets.join(", ")
-                        : "No diet info"}
+                        : detailRecipe[0].diets.map((e) => e.name + ", ")}
                     </p>
                     <h2 className={style.titleText}>Type of Dish:</h2>
-                    <p>
-                      {!detailRecipe[0].createdDb
-                        ? detailRecipe[0].dishTypes.join(", ")
-                        : "No dish types"}
-                    </p>
+                    <p>{detailRecipe[0].dishTypes}</p>
                   </div>
                   <h2 className={style.titleText}>Summary:</h2>
                   <p className={""}>
-                    {!detailRecipe[0].createdInDb
+                    {detailRecipe[0]
                       ? detailRecipe[0].summary.replace(/<[^>]*>?/g)
                       : "no summary"}
                   </p>
                   <h2 className={style.titleText}>Instructions:</h2>
+
                   <p>
-                    {detailRecipe[0].analyzedInstructions[0].steps.map(
-                      (e) => e.step
-                    )}
+                    {detailRecipe[0].createdInDb //si la receta esta en la base de datos
+                      ? detailRecipe[0].analyzedInstructions
+                      : detailRecipe[0].analyzedInstructions.map((e) =>
+                          e.steps.map((e) => (
+                            <ul>
+                              <li key={e.number}>{e.step}</li>
+                            </ul>
+                          ))
+                        )}
                   </p>
                 </div>
 

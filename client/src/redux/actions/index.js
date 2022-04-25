@@ -8,6 +8,7 @@ import {
   GET_DETAIL,
   GET_TYPE_OF_DIET,
   FILTER_BY_DIETS,
+  POST_RECIPE,
 } from "./types";
 
 export function getRecipes() {
@@ -82,13 +83,15 @@ export function getDetails(id) {
     }
   };
 }
-
-// export function getTypeOfDiet() {
-//   return async function (dispatch) {
-//     const json = await axios.get("http://localhost:3001/types");
-//     return dispatch({
-//       type: GET_TYPE_OF_DIET,
-//       payload: json.data,
-//     });
-//   };
-// }
+export function postRecipe(payload) {
+  return async function () {
+    const json = await axios.post(
+      "http://localhost:3001/recipes/create",
+      payload
+    );
+    return {
+      type: POST_RECIPE,
+      json,
+    };
+  };
+}

@@ -7,6 +7,7 @@ import {
   GET_DETAIL,
   GET_TYPE_OF_DIET,
   FILTER_BY_DIETS,
+  POST_RECIPE,
 } from "../actions/types";
 
 const initialState = {
@@ -106,6 +107,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         detail: action.payload,
+      };
+    case POST_RECIPE:
+      return {
+        ...state,
       };
 
     default:

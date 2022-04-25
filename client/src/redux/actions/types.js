@@ -6,3 +6,4 @@ export const GET_NAME_RECIPES = "GET_NAME_RECIPES";
 export const ORDER_BY_LIKES = "ORDER_BY_LIKES";
 export const GET_DETAIL = "GET_DETAIL";
 export const FILTER_BY_DIETS = "FILTER_BY_DIETS";
+export const POST_RECIPE = "POST_RECIPE";

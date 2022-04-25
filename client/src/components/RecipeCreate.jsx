@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
 import { postRecipe, getTypeOfDiet } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+
 // import style from "./RecipeCreate.module.css";
 
 // function validate(input) {
@@ -25,107 +26,54 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
-  // const history = useHistory();
-  // const diets = useSelector((state) => state.diets);
+  const navigate = useNavigate();
+  const allDiets = useSelector((state) => state.types);
   // const [errors, setErrors] = useState({});
 
-  // useEffect(() => {
-  //   dispatch(getTypeOfDiet());
-  // }, [dispatch]);
+  const [input, setInput] = useState({
+    title: "",
+    summary: "",
+    aggregateLikes: "",
+    healthScore: "",
+    analyzedInstructions: "",
+    image: "",
+    diets: [],
+  });
 
-  // const [input, setInput] = useState({
-  //   title: "",
-  //   summary: "",
-  //   aggregateLikes: 0,
-  //   healthScore: 0,
-  //   analyzedInstructions: "",
-  //   image: "",
-  //   diets: [],
-  // });
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log(input);
+  }
 
-  // function handleChange(e) {
-  //   setInput((input) => ({
-  //     ...input,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  //   setErrors(
-  //     validate({
-  //       ...input,
-  //       [e.target.name]: e.target.value,
-  //     })
-  //   );
-  // }
+  useEffect(() => {
+    dispatch(getTypeOfDiet());
+  }, [dispatch]);
 
-  // function handleSelectDiet(e) {
-  //   setInput((input) => ({
-  //     ...input,
-  //     diets: [...input.diets, e.target.value],
-  //   }));
-  //   setErrors(
-  //     validate({
-  //       ...input,
-  //       diets: [...input.diets, e.target.value],
-  //     })
-  //   );
-  // }
-
-  /*  function handleSubmit(e) {
-    if (
-      input.title === "" ||
-      input.summary === "" ||
-      !input.aggregateLikes ||
-      !input.healthScore ||
-      input.analyzedInstructions === "" ||
-      input.image === "" ||
-      input.diets === []
-    ) {
-      e.preventDefault();
-      alert("You must complete every field");
-    } else {
-      e.preventDefault();
-      dispatch(postRecipe(input));
-      alert("Recipe created!");
-      setInput({
-        title: "",
-        summary: "",
-        aggregateLikes: 0,
-        healthScore: 0,
-        analyzedInstructions: "",
-        image: "",
-        diets: [],
-      });
-      history.push("/home");
-    }
-  } */
-  // function handleSubmit(e) {
-  //   if (input.title && input.summary && input.image && input.diets.length > 0) {
-  //     e.preventDefault();
-  //     dispatch(postRecipe(input));
-  //     alert("Recipe succesfully Created!!");
-  //     setInput({
-  //       title: "",
-  //       summary: "",
-  //       aggregateLikes: 0,
-  //       healthScore: 0,
-  //       analyzedInstructions: "",
-  //       image: "",
-  //       diets: [],
-  //     });
-  //     history.push("/home");
-  //   } else {
-  //     e.preventDefault();
-  //     alert("You must complete every field!!");
-  //   }
-  // }
-
-  // function handleDelete(e, d) {
-  //   e.preventDefault();
-  //   setInput({
-  //     ...input,
-  //     diets: input.diets.filter((diet) => diet !== d),
-  //   });
-  // }
-
+  function handleSelect(e) {
+    setInput({
+      ...input,
+      diets: [...input.diets, e.target.value], // le pasamos el input diets que habia y despues el target...
+    });
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(input);
+    dispatch(postRecipe(input));
+    alert("Receta creada");
+    setInput({
+      title: "",
+      summary: "",
+      aggregateLikes: "",
+      healthScore: "",
+      analyzedInstructions: "",
+      image: "",
+      diets: [],
+    });
+    navigate("/home");
+  }
   return (
     <div>
       <Link to="/home">
@@ -133,17 +81,17 @@ export default function RecipeCreate() {
       </Link>
       <h1>Create your own Recipe here:</h1>
       <div className={""}></div>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label className={""}>Plate Name:</label>
 
           <input
             className={""}
-            placeholder="Complete here..."
+            placeholder="Ingrese title"
             type="text"
-            value={""}
+            value={input.title}
             name="title"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           {/* {errors.title && <p>{errors.title}</p>} */}
         </div>
@@ -153,9 +101,9 @@ export default function RecipeCreate() {
             className={""}
             placeholder="Complete here..."
             type="text"
-            value={""}
+            value={input.summary}
             name="summary"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           {/* {errors.summary && <p>{errors.summary}</p>} */}
         </div>
@@ -163,20 +111,20 @@ export default function RecipeCreate() {
           <label>Score:</label>
           <input
             className={""}
-            type="text"
-            value={""}
+            type="number"
+            value={input.aggregateLikes}
             name="aggregateLikes"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
           <label>Health Level:</label>
           <input
             className={""}
-            type="text"
-            value={""}
+            type="number"
+            value={input.healthScore}
             name="healthScore"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
@@ -186,9 +134,9 @@ export default function RecipeCreate() {
             className={""}
             placeholder="Complete here..."
             rows="5"
-            value={""}
+            value={input.analyzedInstructions}
             name="analyzedInstructions"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
@@ -197,28 +145,38 @@ export default function RecipeCreate() {
             className={""}
             type="text"
             placeholder="Example: https://..."
-            value={""}
+            value={input.image}
             name="image"
-            // onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           {/* {errors.image && <p>{errors.image}</p>} */}
         </div>
-        <div className={""}>
-          <span>Type of Diet:</span>
-          {/* <select onChange={(e) => handleSelectDiet(e)}>
-            {diets.map((d) => (
-              <option value={d.name} key={d.name}>
-                {d.name}
-              </option>
-            ))}
-          </select> */}
-          {/* {input.diets.map((d, i) => (
-            <ul key={i}>
-              <li>{d}</li>
-              <button onClick={(e) => handleDelete(e, d)}>x</button>
-            </ul>
-          ))}
-          {errors.diets && <p>{errors.diets}</p>} */}
+        <div>
+          <select onChange={(e) => handleSelect(e)}>
+            <option key={0} value="ALL">
+              Types of diets
+            </option>
+            {allDiets
+              ?.sort(function (a, b) {
+                if (a.name > b.name) {
+                  return 1;
+                }
+                if (b.name > a.name) {
+                  return -1;
+                }
+                return 0;
+              })
+              .map((e) => {
+                return (
+                  <option key={e.id} value={e.name}>
+                    {e.name}
+                  </option>
+                );
+              })}
+          </select>
+          <ul>
+            <li>{input.diets.map((el) => el + ",  ")}</li>
+          </ul>
         </div>
         <button type="submit" className={""}>
           Create Recipe

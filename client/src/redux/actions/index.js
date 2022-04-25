@@ -84,14 +84,11 @@ export function getDetails(id) {
   };
 }
 export function postRecipe(payload) {
-  return async function () {
+  return async function (dispatch) {
     const json = await axios.post(
       "http://localhost:3001/recipes/create",
       payload
     );
-    return {
-      type: POST_RECIPE,
-      json,
-    };
+    return json;
   };
 }

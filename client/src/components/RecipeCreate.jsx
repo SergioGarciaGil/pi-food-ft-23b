@@ -2,33 +2,31 @@ import React, { useState, useEffect } from "react";
 import { postRecipe, getTypeOfDiet } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import style from "./RecipeCreate.module.css";
 
-// import style from "./RecipeCreate.module.css";
-
-// function validate(input) {
-//   let errors = {};
-//   input.title
-//     ? (errors.title = "")
-//     : (errors.title = "You must name the recipe");
-//   input.summary
-//     ? (errors.summary = "")
-//     : (errors.summary = "You must provide a summary");
-//   input.diets.length < 1
-//     ? (errors.diets = "Choose at least one diet")
-//     : (errors.diets = "");
-//   if (!input.image.includes("https://") && !input.image.includes("http://")) {
-//     errors.image = "This isn't a valid image address";
-//   } else {
-//     errors.image = "";
-//   }
-//   return errors;
-// }
+function validate(input) {
+  let errors = {};
+  if (!input.name) {
+    errors.name = "Name es requerido";
+  } else if (!input.summary) {
+    errors.summary = "Summary es requerido";
+  } else if (!input.aggregateLikes) {
+    errors.aggregateLikes = "Campo no debe estar vacio";
+  } else if (!input.healthScore) {
+    errors.healthScore = "Campo no debe estar vacio";
+  } else if (input.analyzedInstructions.length < 10) {
+    errors.analyzedInstructions = "Debe tener mas de 10 caracteres";
+  } else if (!input.image.includes("https://")) {
+    errors.image = "Debe ingresar una imagen";
+  }
+  return errors;
+}
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const allDiets = useSelector((state) => state.types);
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     title: "",
@@ -45,6 +43,13 @@ export default function RecipeCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      //seteamos el estado errores pasandole la funcion validate
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
     console.log(input);
   }
 
@@ -58,98 +63,111 @@ export default function RecipeCreate() {
       diets: [...input.diets, e.target.value], // le pasamos el input diets que habia y despues el target...
     });
   }
+  function handleDelete(e) {
+    setInput({
+      ...input,
+      diets: input.diets.filter((diet) => diet !== e),
+    });
+  }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input);
-    dispatch(postRecipe(input));
-    alert("Receta creada");
-    setInput({
-      title: "",
-      summary: "",
-      aggregateLikes: "",
-      healthScore: "",
-      analyzedInstructions: "",
-      image: "",
-      diets: [],
-    });
+    if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
+      dispatch(postRecipe(input));
+      alert("Receta creada");
+      setInput({
+        name: "",
+        summary: "",
+        aggregateLikes: "",
+        healthScore: "",
+        analyzedInstructions: "",
+        image: "",
+        diets: [],
+      });
+    } else {
+      return alert("Receta no ha sido creada");
+    }
     navigate("/home");
   }
+
   return (
-    <div>
-      <Link to="/home">
-        <button>Back</button>
+    <div className={style.todo}>
+      <Link className={style.btnVolver} to="/home">
+        Volver
       </Link>
-      <h1>Create your own Recipe here:</h1>
-      <div className={""}></div>
+      <h1 className={style.textCreate}>Create your Recipe:</h1>
+
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label className={""}>Plate Name:</label>
+          <label className={style.label}>Plate Name:</label>
 
           <input
-            className={""}
-            placeholder="Ingrese title"
+            className={style.input}
+            placeholder="Ingrese Name"
             type="text"
-            value={input.title}
-            name="title"
+            value={input.name}
+            name="name"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.title && <p>{errors.title}</p>} */}
+          {errors.name && <p>{errors.name}</p>}
         </div>
         <div>
-          <label>Summary:</label>
+          <label className={style.label}>Summary:</label>
           <input
-            className={""}
+            className={style.input}
             placeholder="Complete here..."
             type="text"
             value={input.summary}
             name="summary"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.summary && <p>{errors.summary}</p>} */}
+          {errors.summary && <p>{errors.summary}</p>}
         </div>
         <div>
-          <label>Score:</label>
+          <label className={style.label}>Score:</label>
           <input
-            className={""}
-            type="number"
+            className={style.input}
+            type="text"
             value={input.aggregateLikes}
             name="aggregateLikes"
             onChange={(e) => handleChange(e)}
           />
+          {errors.aggregateLikes && <p>{errors.aggregateLikes}</p>}
         </div>
         <div>
           <label>Health Level:</label>
           <input
-            className={""}
-            type="number"
+            className={style.input}
+            type="text"
             value={input.healthScore}
             name="healthScore"
             onChange={(e) => handleChange(e)}
           />
+          {errors.healthScore && <p>{errors.healthScore}</p>}
         </div>
         <div>
-          <label className={""}>Instructions:</label>
+          <label className={style.label}>Instructions:</label>
           <textarea
             type="text"
-            className={""}
+            className={style.input}
             placeholder="Complete here..."
             rows="5"
             value={input.analyzedInstructions}
             name="analyzedInstructions"
             onChange={(e) => handleChange(e)}
           />
+          {errors.analyzedInstructions && <p>{errors.analyzedInstructions}</p>}
         </div>
         <div>
-          <label>Image:</label>
+          <label className={style.label}>Image:</label>
           <input
-            className={""}
+            className={style.input}
             type="text"
             placeholder="Example: https://..."
             value={input.image}
             name="image"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.image && <p>{errors.image}</p>} */}
+          {errors.image && <p>{errors.image}</p>}
         </div>
         <div>
           <select onChange={(e) => handleSelect(e)}>
@@ -175,13 +193,18 @@ export default function RecipeCreate() {
               })}
           </select>
           <ul>
-            <li>{input.diets.map((el) => el + ",  ")}</li>
+            <li>{input.diets.map((e) => e + ",  ")}</li>
           </ul>
         </div>
-        <button type="submit" className={""}>
-          Create Recipe
-        </button>
+
+        <button type="submit">Create Recipe</button>
       </form>
+      {input.diets.map((e) => (
+        <div key={e}>
+          <p>{e}</p>
+          <button onClick={(e) => handleDelete(e)}>X</button>
+        </div>
+      ))}
     </div>
   );
 }

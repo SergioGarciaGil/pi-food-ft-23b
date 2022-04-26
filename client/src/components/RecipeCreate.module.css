@@ -1,126 +1,98 @@
-.create {
-  margin: 0;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  /* background-image: url("../assets/bkgCreate.jpg"); */
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  font-family: "Comic Neue", cursive;
-}
+.todo {
+  position: relative;
+  border: 2px solid rgb(145, 136, 136);
+  border-radius: 20px;
+  padding: 20px;
+  top: 10px;
+  left: 25%;
 
-.create button {
-  border-color: rgb(223, 208, 124);
-  border: solid 2px;
-  border-width: 0.5px;
-  border-radius: 100px;
-  background-color: rgb(88, 72, 45);
-  transition: background-color 0.25s, color 0.25s;
-  padding: 7px;
-  font-family: "Comic Neue", cursive;
-  cursor: pointer;
-  color: rgb(223, 208, 124);
-}
-.create button:hover {
-  background-color: rgb(126, 123, 126);
-  color: white;
-  border: 2px outset rgba(119, 98, 28, 0.8);
-}
-.buttonToHome {
-  margin-top: 10px;
-  margin-left: 90%;
-  margin-bottom: 0px;
-}
-
-.create h1 {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 0px;
-  margin-bottom: 0;
-  font-size: 40px;
-  text-shadow: rgb(19, 19, 18) -3px 1px;
-  font-family: "Comic Neue", cursive;
-  color: rgb(207, 193, 112);
+  width: 40%;
+  height: 20%;
+  background-color: rgba(39, 231, 39, 0.594);
+
 }
 
-.create form {
-  margin-left: 35%;
-  margin-top: 20px;
-  font-family: "Mulish", sans-serif;
-  color: rgb(207, 193, 112);
-  text-shadow: rgb(19, 19, 18) -0.5px 0.5px;
-  font-size: 15px;
+.textCreate {
+
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: rgb(53, 57, 57);
+  font-size: 30px;
+  position: relative;
+  bottom: 40px;
+  left: 80px;
+
+
+
 }
 
-.create label {
-  margin-right: 8px;
-}
+.btnVolver {
 
-.inputCreate {
-  font-size: 13px;
-  height: 13px;
-}
-::placeholder {
-  color: rgb(131, 131, 124);
-}
-
-.form  {
-  margin-bottom: 10px;
-}
-
-.form p {
-  font-size: 12px;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 40%;
-  color: rgb(248, 46, 46);
-  background-color: rgb(19, 18, 18);
-  width: 180px;
-  float: right;
-  padding: 2px;
-}
-
-.instruction {
-  width: 400px;
-}
-.labelInstr {
-  display: flex;
-}
-
-.create span {
-  margin-right: 6px;
-}
-
-.dietsCreate li {
-  float: left;
-  justify-content: flex-start;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.dietsCreate ul {
-  margin-top: 12px;
-}
-
-.dietsCreate button {
-  background-color: rgb(156, 54, 28);
-  border-color: rgb(189, 202, 117);
-  border-radius: 9999px;
-  font-size: 10px;
-  padding: 2px;
-  margin-top: 0;
-  margin-left: 5px;
-  width: 18px;
-}
-
-.dietsCreate button:hover {
-  background-color: rgb(126, 123, 126);
+  background-color: rgb(255, 106, 19);
+  border: 2px solid rgb(10, 9, 8);
   color: white;
-  border: 2px outset rgba(119, 98, 28, 0.8);
-  width: 20px;
+  font-size: auto;
+  text-decoration: none;
+  padding: 10px;
+  width: 40px;
+  height: 15px;
+  position: relative;
+
 }
 
-.btnCreate {
-  margin-left: 50%;
+.label {
+  color: black;
+  font-size: medium;
+  margin: 20px
+}
+
+.input {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border-color: transparent;
+  margin: 10px;
+  width: 400px;
+
+
+}
+
+.btnCreateDog {
+  position: relative;
+  left: 90px;
+  background-color: rgb(255, 106, 19);
+  border: 2px solid rgb(10, 9, 8);
+  color: white;
+  font-size: 18px;
+  padding: 5px;
+  text-decoration: center;
+  width: 200px;
+  height: 30px
+}
+
+.temperaments {
+  position: relative;
+  left: 90px;
+  background-color: rgb(255, 106, 19);
+  border: 2px solid rgb(10, 9, 8);
+  color: white;
+  font-size: 18px;
+  padding: 5px;
+  text-decoration: center;
+  width: 200px;
+  height: 30px
+}
+
+.containtAtributtes {
+  position: relative;
+  left: 90px;
+  background-color: rgb(255, 106, 19);
+  border: 2px solid rgb(10, 9, 8);
+  color: rgb(15, 14, 14);
+  font-size: 18px;
+  padding: 5px;
+  text-decoration: center;
+  width: 200px;
+  height: 30px
 }

@@ -6,7 +6,6 @@ const createRecipe = async (req, res) => {
     summary,
     aggregateLikes,
     healthScore,
-    dishTypes,
     analyzedInstructions,
     image,
     diets,
@@ -17,7 +16,6 @@ const createRecipe = async (req, res) => {
     summary,
     aggregateLikes,
     healthScore,
-    dishTypes,
     analyzedInstructions,
     image,
   });

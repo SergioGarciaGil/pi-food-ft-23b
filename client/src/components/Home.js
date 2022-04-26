@@ -138,7 +138,6 @@ export default function Home() {
                 <option value="created">Creados</option>
               </select>
             </div>
-            <select></select>
           </div>
         </div>
 

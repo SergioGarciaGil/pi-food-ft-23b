@@ -63,7 +63,7 @@ export default function Detail(props) {
                     </h2>
                     <p>
                       {!detailRecipe[0].createdInDb
-                        ? detailRecipe[0].diets.join(", ")
+                        ? detailRecipe[0].diets + " "
                         : detailRecipe[0].diets.map((e) => e.name + ", ")}
                     </p>
                     <h2 className={style.titleText}>Type of Dish:</h2>

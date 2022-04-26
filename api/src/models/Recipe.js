@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // dishTypes: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
     aggregateLikes: {
       type: DataTypes.INTEGER,
       allowNull: false,

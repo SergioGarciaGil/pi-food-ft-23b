@@ -4,23 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import style from "./RecipeCreate.module.css";
 
-function validate(input) {
-  let errors = {};
-  if (!input.name) {
-    errors.name = "Name es requerido";
-  } else if (!input.summary) {
-    errors.summary = "Summary es requerido";
-  } else if (!input.aggregateLikes) {
-    errors.aggregateLikes = "Campo no debe estar vacio";
-  } else if (!input.healthScore) {
-    errors.healthScore = "Campo no debe estar vacio";
-  } else if (input.analyzedInstructions.length < 10) {
-    errors.analyzedInstructions = "Debe tener mas de 10 caracteres";
-  } else if (!input.image.includes("https://")) {
-    errors.image = "Debe ingresar una imagen";
-  }
-  return errors;
-}
+// function validate(input) {
+//   let errors = {};
+//   if (!input.name) {
+//     errors.name = "Name es requerido";
+//   } else if (!input.summary) {
+//     errors.summary = "Summary es requerido";
+//   } else if (!input.aggregateLikes) {
+//     errors.aggregateLikes = "Campo no debe estar vacio";
+//   } else if (!input.healthScore) {
+//     errors.healthScore = "Campo no debe estar vacio";
+//   } else if (input.analyzedInstructions.length < 10) {
+//     errors.analyzedInstructions = "Debe tener mas de 10 caracteres";
+//   } else if (!input.image.includes("https://")) {
+//     errors.image = "Debe ingresar una imagen";
+//   }
+//   return errors;
+// }
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
@@ -43,13 +43,13 @@ export default function RecipeCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      //seteamos el estado errores pasandole la funcion validate
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    // setErrors(
+    //   //seteamos el estado errores pasandole la funcion validate
+    //   validate({
+    //     ...input,
+    //     [e.target.name]: e.target.value,
+    //   })
+    // );
     console.log(input);
   }
 
@@ -66,33 +66,33 @@ export default function RecipeCreate() {
   function handleDelete(e) {
     setInput({
       ...input,
-      diets: input.diets.filter((diet) => diet !== e),
+      diets: input.diets.filter((el) => el !== e),
     });
   }
   function handleSubmit(e) {
     e.preventDefault();
-    if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
-      dispatch(postRecipe(input));
-      alert("Receta creada");
-      setInput({
-        name: "",
-        summary: "",
-        aggregateLikes: "",
-        healthScore: "",
-        analyzedInstructions: "",
-        image: "",
-        diets: [],
-      });
-    } else {
-      return alert("Receta no ha sido creada");
-    }
+    // if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
+    dispatch(postRecipe(input));
+    alert("Receta creada");
+    setInput({
+      name: "",
+      summary: "",
+      aggregateLikes: "",
+      healthScore: "",
+      analyzedInstructions: "",
+      image: "",
+      diets: [],
+    });
+    // } else {
+    // return alert("Receta no ha sido creada");
+    // }
     navigate("/home");
   }
 
   return (
     <div className={style.todo}>
       <Link className={style.btnVolver} to="/home">
-        Volver
+        <botton>VOLVER</botton>
       </Link>
       <h1 className={style.textCreate}>Create your Recipe:</h1>
 
@@ -202,7 +202,7 @@ export default function RecipeCreate() {
       {input.diets.map((e) => (
         <div key={e}>
           <p>{e}</p>
-          <button onClick={(e) => handleDelete(e)}>X</button>
+          <button onClick={() => handleDelete(e)}>X</button>
         </div>
       ))}
     </div>

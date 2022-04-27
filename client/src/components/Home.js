@@ -9,7 +9,7 @@ import {
   getTypeOfDiet,
   filterByDiets,
 } from "../redux/actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "./Card";
 import style from "./Home.module.css";
 import LinkTitle from "./Card.module.css";
@@ -35,7 +35,7 @@ export default function Home() {
     // me ayuda al renderizado del paginado
     setCurrentPage(pageNumber);
   };
-
+  const nav = useNavigate()
   useEffect(() => {
     dispatch(getRecipes());
     dispatch(getTypeOfDiet());
@@ -104,7 +104,8 @@ export default function Home() {
                     if (b.name > a.name) {
                       return -1;
                     }
-                    return 0;
+
+                    return 0
                   })
                   .map((e) => {
                     return (
@@ -142,23 +143,30 @@ export default function Home() {
         </div>
 
         <div className={style.mainCard}>
-          {currentRecipes &&
-            currentRecipes.map((el) => {
-              return (
-                <div key={el.id}>
-                  <Link to={"/detail/" + el.id} className={LinkTitle.linkTitle}>
+          {currentRecipes.length > 0 ?
+            <>
+              {currentRecipes.map((el) => {
+                return (
+                  <div onClick={() => nav("/detail/" + el.id)}>
+
                     <Card
                       id={el.id}
                       key={el.id}
                       title={el.title}
                       image={el.image}
-                      diets={el.diets.join(", ")}
+                      diets={el.diets.map((el) => el.name ? el.name + ", " : el)}//aqui hacemos un map para sacar los nombres de los tipos de dieta
                       likes={el.aggregateLikes}
+
                     />
-                  </Link>
-                </div>
-              );
-            })}
+
+                  </div>
+                )
+              })}
+            </>
+            :
+            <img src="https://i.ytimg.com/vi/8gW0GABZWg0/maxresdefault.jpg" width={"800px"} margin={"500px"} />
+          }
+
         </div>
 
         <Paginado
@@ -167,6 +175,7 @@ export default function Home() {
           paginado={paginado}
         />
       </div>
+
     </div>
   );
 }

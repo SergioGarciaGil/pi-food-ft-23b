@@ -4,23 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import style from "./RecipeCreate.module.css";
 
-// function validate(input) {
-//   let errors = {};
-//   if (!input.name) {
-//     errors.name = "Name es requerido";
-//   } else if (!input.summary) {
-//     errors.summary = "Summary es requerido";
-//   } else if (!input.aggregateLikes) {
-//     errors.aggregateLikes = "Campo no debe estar vacio";
-//   } else if (!input.healthScore) {
-//     errors.healthScore = "Campo no debe estar vacio";
-//   } else if (input.analyzedInstructions.length < 10) {
-//     errors.analyzedInstructions = "Debe tener mas de 10 caracteres";
-//   } else if (!input.image.includes("https://")) {
-//     errors.image = "Debe ingresar una imagen";
-//   }
-//   return errors;
-// }
+function validate(input) {
+  let errors = {};
+  if (!input.title) {
+    errors.name = "Name es requerido";
+  } else if (!input.summary) {
+    errors.summary = "Summary es requerido";
+  } else if (!input.aggregateLikes) {
+    errors.aggregateLikes = "Campo no debe estar vacio";
+  } else if (!input.healthScore) {
+    errors.healthScore = "Campo no debe estar vacio";
+  } else if (input.analyzedInstructions.length < 10) {
+    errors.analyzedInstructions = "Debe tener mas de 10 caracteres";
+  } else if (!input.image.includes("https://")) {
+    errors.image = "Debe ingresar una imagen";
+  }
+  return errors;
+}
 
 export default function RecipeCreate() {
   const dispatch = useDispatch();
@@ -43,13 +43,13 @@ export default function RecipeCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    // setErrors(
-    //   //seteamos el estado errores pasandole la funcion validate
-    //   validate({
-    //     ...input,
-    //     [e.target.name]: e.target.value,
-    //   })
-    // );
+    setErrors(
+      //seteamos el estado errores pasandole la funcion validate
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
     console.log(input);
   }
 
@@ -69,13 +69,14 @@ export default function RecipeCreate() {
       diets: input.diets.filter((el) => el !== e),
     });
   }
+ 
   function handleSubmit(e) {
     e.preventDefault();
-    // if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
+    if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
     dispatch(postRecipe(input));
     alert("Receta creada");
     setInput({
-      name: "",
+      title: "",
       summary: "",
       aggregateLikes: "",
       healthScore: "",
@@ -83,9 +84,9 @@ export default function RecipeCreate() {
       image: "",
       diets: [],
     });
-    // } else {
-    // return alert("Receta no ha sido creada");
-    // }
+    } else {
+    return alert("Receta no ha sido creada");
+    }
     navigate("/home");
   }
 
@@ -102,10 +103,10 @@ export default function RecipeCreate() {
 
           <input
             className={style.input}
-            placeholder="Ingrese Name"
+            placeholder="Ingrese Title"
             type="text"
-            value={input.name}
-            name="name"
+            value={input.title}
+            name="title"
             onChange={(e) => handleChange(e)}
           />
           {errors.name && <p>{errors.name}</p>}
@@ -175,7 +176,7 @@ export default function RecipeCreate() {
               Types of diets
             </option>
             {allDiets
-              ?.sort(function (a, b) {
+              ?.sort(function (a, b) {//
                 if (a.name > b.name) {
                   return 1;
                 }
@@ -205,6 +206,10 @@ export default function RecipeCreate() {
           <button onClick={() => handleDelete(e)}>X</button>
         </div>
       ))}
+      
+      
     </div>
+    
   );
+
 }

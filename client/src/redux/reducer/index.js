@@ -52,25 +52,6 @@ function rootReducer(state = initialState, action) {
         recipes: action.payload === "all" ? allRecipeCreated : createdFilter,
       };
     case ORDER_BY_NAME:
-      // const order =
-      //   action.payload === "asc"
-      //     ? state.recipes.sort((a, b) => {
-      //         //ordena de menor a mayor
-      //         if (a.title < b.title) return -1;
-      //         if (a.title > b.title) return 1;
-      //         return 0;
-      //       })
-      //     : state.recipes.sort((a, b) => {
-      //         //ordena de mayor a menor
-      //         if (a.title > b.title) return -1;
-      //         if (a.title < b.title) return 1;
-      //         return 0;
-      //       });
-      // return {
-      //   ...state,
-      //   recipes: order,
-      // };
-
       const allRecipe = state.recipes;
       const order =
         action.payload === "asc"

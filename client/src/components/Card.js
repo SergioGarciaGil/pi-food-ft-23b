@@ -13,8 +13,11 @@ export default function Card({ title, image, diets, likes }) {
           width="200px"
           height="250px"
         />
+
         <h4 className={style.linkTitleLikes}>Likes {likes}</h4>
-        <h6 className={style.linkTitleDiets}> {diets}</h6>
+        <h5 className={style.linkTitleDiets}> {diets}</h5>
+
+
       </div>
     </div>
   );

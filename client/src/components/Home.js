@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Card from "./Card";
 import style from "./Home.module.css";
-import LinkTitle from "./Card.module.css";
+
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
 
@@ -21,8 +21,9 @@ export default function Home() {
   const allRecipes = useSelector((state) => state.recipes);
   const allDiets = useSelector((state) => state.types);
 
+
   const [currentPage, setCurrentPage] = useState(1); //creamos un stado local para setear la paginacion o pagina actual
-  const [recipesPerPage, setRecipesPerPage] = useState(8); //creamos un stado local para setear la cantidad de recetas por pagina
+  const [recipesPerPage,] = useState(8); //creamos un stado local para setear la cantidad de recetas por pagina
   const indexOfLastRecipe = currentPage * recipesPerPage; //mis personajes por pagina
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage; //aqui restamos la cantidad de personajes por pagina y me da 0
   const currentRecipes = allRecipes.slice(
@@ -46,7 +47,7 @@ export default function Home() {
     dispatch(getRecipes());
   }
 
-  const [orden, setOrden] = useState("");
+  const [, setOrden] = useState("");
   function HandleSortName(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
@@ -59,13 +60,14 @@ export default function Home() {
     dispatch(filterByDiets(e.target.value));
   }
 
+
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
     setCurrentPage(1);
   }
 
-  const [orderLike, setOrderLike] = useState("");
+  const [, setOrderLike] = useState("");
   function handleOrderByLikes(e) {
     e.preventDefault();
     dispatch(orderByLikes(e.target.value));
@@ -93,27 +95,22 @@ export default function Home() {
             </div>
             <div className={style.contentSelect}>
               <select onChange={(e) => handleFilterDiets(e)}>
-                <option key={0} value="ALL">
-                  Types of diets
-                </option>
-                {allDiets
-                  ?.sort(function (a, b) {
-                    if (a.name > b.name) {
-                      return 1;
-                    }
-                    if (b.name > a.name) {
-                      return -1;
-                    }
 
-                    return 0
-                  })
-                  .map((e) => {
-                    return (
-                      <option key={e.id} value={e.name}>
-                        {e.name}
-                      </option>
-                    );
-                  })}
+                <option key={0} value="aLL">Tipos de dietas</option>
+                {allDiets.sort((a, b) => {
+                  if (a.name > b.name) {
+                    return 1;
+                  }
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  return 0;
+                })
+
+
+                  .map((e) => <option key={e.id} value={e.name}>{e.name}</option>)}
+
+
               </select>
             </div>
             <div className={style.contentSelect}>
@@ -143,28 +140,30 @@ export default function Home() {
         </div>
 
         <div className={style.mainCard}>
-          {currentRecipes.length > 0 ?
-            <>
-              {currentRecipes.map((el) => {
-                return (
-                  <div onClick={() => nav("/detail/" + el.id)}>
 
-                    <Card
-                      id={el.id}
-                      key={el.id}
-                      title={el.title}
-                      image={el.image}
-                      diets={el.diets.map((el) => el.name ? el.name + ", " : el)}//aqui hacemos un map para sacar los nombres de los tipos de dieta
-                      likes={el.aggregateLikes}
 
-                    />
 
-                  </div>
-                )
-              })}
-            </>
-            :
-            <img src="https://i.ytimg.com/vi/8gW0GABZWg0/maxresdefault.jpg" width={"800px"} margin={"500px"} />
+          {
+            currentRecipes.map((el) => {
+
+              return (
+                <div key={el.id} onClick={() => nav("/detail/" + el.id)}>
+
+                  <Card
+                    id={el.id}
+                    key={el.id}
+                    title={el.title}
+                    image={el.image}
+                    diets={el.diets.map((el) => el.name ? el.name + ", " : el)}//aqui hacemos un map para sacar los nombres de los tipos de dieta
+                    likes={el.aggregateLikes}
+
+                  />
+
+                </div>
+              )
+            })
+
+
           }
 
         </div>
@@ -176,6 +175,6 @@ export default function Home() {
         />
       </div>
 
-    </div>
+    </div >
   );
 }

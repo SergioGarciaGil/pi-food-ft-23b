@@ -44,6 +44,11 @@
 .titleText{
     color: red;    
 }
+.parrafoText{
+    color: black;
+    font-weight:normal;
+    
+}
 
 p{
      font-size: 25px; 

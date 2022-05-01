@@ -14,6 +14,7 @@ const initialState = {
   recipes: [],
   filterRecipes: [],
   detail: [],
+  types: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -24,6 +25,7 @@ function rootReducer(state = initialState, action) {
         recipes: action.payload,
         filterRecipes: action.payload,
       };
+
     case GET_TYPE_OF_DIET:
       return {
         ...state,
@@ -34,11 +36,13 @@ function rootReducer(state = initialState, action) {
       const dietsFiltered =
         action.payload === "all"
           ? allDiets
-          : allDiets.filter((e) => e.diets?.includes(action.payload));
+          : allDiets.filter((el) => el.diets.includes(action.payload));
       return {
         ...state,
         recipes: dietsFiltered,
       };
+
+
 
     case FILTER_CREATED:
       const allRecipeCreated = state.filterRecipes;
@@ -68,16 +72,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: action.payload,
       };
+
     case ORDER_BY_LIKES:
       const allLikes = state.recipes;
       const orderLikes =
         action.payload === "desc"
           ? allLikes.sort((a, b) =>
-              a.aggregateLikes > b.aggregateLikes ? 1 : -1
-            ) //ordena de mayor a menor
+            a.aggregateLikes > b.aggregateLikes ? 1 : -1
+          ) //ordena de mayor a menor
           : allLikes.sort((a, b) =>
-              a.aggregateLikes < b.aggregateLikes ? 1 : -1
-            ); ///ordena de menor a mayor
+            a.aggregateLikes < b.aggregateLikes ? 1 : -1
+          ); ///ordena de menor a mayor
 
       return {
         ...state,

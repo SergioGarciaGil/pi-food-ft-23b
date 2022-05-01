@@ -12,6 +12,11 @@ function validate(input) {
     errors.summary = "Summary es requerido";
   } else if (!input.aggregateLikes) {
     errors.aggregateLikes = "Campo no debe estar vacio";
+  } else if (isNaN(input.aggregateLikes)) {
+    errors.aggregateLikes = "Campo debe ser un numero";
+  } else if (isNaN(input.healthScore)) {
+    errors.healthScore = "Health Score debe ser un numero";
+
   } else if (!input.healthScore) {
     errors.healthScore = "Campo no debe estar vacio";
   } else if (input.analyzedInstructions.length < 10) {
@@ -36,6 +41,7 @@ export default function RecipeCreate() {
     analyzedInstructions: "",
     image: "",
     diets: [],
+    dishTypes: ""
   });
 
   function handleChange(e) {
@@ -69,23 +75,24 @@ export default function RecipeCreate() {
       diets: input.diets.filter((el) => el !== e),
     });
   }
- 
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!errors.name && !errors.summary && !errors.diets && !errors.image) {
-    dispatch(postRecipe(input));
-    alert("Receta creada");
-    setInput({
-      title: "",
-      summary: "",
-      aggregateLikes: "",
-      healthScore: "",
-      analyzedInstructions: "",
-      image: "",
-      diets: [],
-    });
+      dispatch(postRecipe(input));
+      alert("Receta creada");
+      setInput({
+        title: "",
+        summary: "",
+        aggregateLikes: "",
+        healthScore: "",
+        analyzedInstructions: "",
+        image: "",
+        diets: [],
+        dishTypes: "",
+      });
     } else {
-    return alert("Receta no ha sido creada");
+      return alert("Receta no ha sido creada");
     }
     navigate("/home");
   }
@@ -109,7 +116,7 @@ export default function RecipeCreate() {
             name="title"
             onChange={(e) => handleChange(e)}
           />
-          {errors.name && <p>{errors.name}</p>}
+          {errors.name && <p className={style.error}>{errors.name}</p>}
         </div>
         <div>
           <label className={style.label}>Summary:</label>
@@ -121,7 +128,7 @@ export default function RecipeCreate() {
             name="summary"
             onChange={(e) => handleChange(e)}
           />
-          {errors.summary && <p>{errors.summary}</p>}
+          {errors.summary && <p className={style.error}>{errors.summary}</p>}
         </div>
         <div>
           <label className={style.label}>Score:</label>
@@ -132,7 +139,7 @@ export default function RecipeCreate() {
             name="aggregateLikes"
             onChange={(e) => handleChange(e)}
           />
-          {errors.aggregateLikes && <p>{errors.aggregateLikes}</p>}
+          {errors.aggregateLikes && <p className={style.error}>{errors.aggregateLikes}</p>}
         </div>
         <div>
           <label>Health Level:</label>
@@ -143,20 +150,32 @@ export default function RecipeCreate() {
             name="healthScore"
             onChange={(e) => handleChange(e)}
           />
-          {errors.healthScore && <p>{errors.healthScore}</p>}
+          {errors.healthScore && <p className={style.error}>{errors.healthScore}</p>}
         </div>
+        <label className={style.labelI}>Instructions:</label>
         <div>
-          <label className={style.label}>Instructions:</label>
+
           <textarea
             type="text"
             className={style.input}
-            placeholder="Complete here..."
+            placeholder="Instructions..."
             rows="5"
             value={input.analyzedInstructions}
             name="analyzedInstructions"
             onChange={(e) => handleChange(e)}
           />
-          {errors.analyzedInstructions && <p>{errors.analyzedInstructions}</p>}
+          {errors.analyzedInstructions && <p className={style.error}>{errors.analyzedInstructions}</p>}
+        </div>
+        <div>
+          <label>Types of Dish </label>
+          <input
+            className={style.input}
+            placeholder="Complete here... postre, comida, etc"
+            type="text"
+            value={input.dishTypes}
+            name="dishTypes"
+            onChange={(e) => handleChange(e)}
+          />
         </div>
         <div>
           <label className={style.label}>Image:</label>
@@ -168,8 +187,9 @@ export default function RecipeCreate() {
             name="image"
             onChange={(e) => handleChange(e)}
           />
-          {errors.image && <p>{errors.image}</p>}
+          {errors.image && <p className={style.error}>{errors.image}</p>}
         </div>
+
         <div>
           <select onChange={(e) => handleSelect(e)}>
             <option key={0} value="ALL">
@@ -193,7 +213,8 @@ export default function RecipeCreate() {
                 );
               })}
           </select>
-          <ul>
+
+          <ul >
             <li>{input.diets.map((e) => e + ",  ")}</li>
           </ul>
         </div>
@@ -202,14 +223,14 @@ export default function RecipeCreate() {
       </form>
       {input.diets.map((e) => (
         <div key={e}>
-          <p>{e}</p>
+          <p >{e}</p>
           <button onClick={() => handleDelete(e)}>X</button>
         </div>
       ))}
-      
-      
+
+
     </div>
-    
+
   );
 
 }

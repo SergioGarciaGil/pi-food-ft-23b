@@ -8,18 +8,21 @@ import {
   GET_DETAIL,
   GET_TYPE_OF_DIET,
   FILTER_BY_DIETS,
-  POST_RECIPE,
+  // POST_RECIPE,
 } from "./types";
 
+
 export function getRecipes() {
-  return async function (dispatch) {
-    const json = await axios.get("http://localhost:3001/recipes");
-    return dispatch({
-      type: GET_RECIPES,
-      payload: json.data,
-    });
-  };
+  return function (dispatch) {
+    axios.get("http://localhost:3001/recipes").then(resp => {
+      return dispatch({
+        type: GET_RECIPES,
+        payload: resp.data
+      })
+    }).catch(error => console.log(error))
+  }
 }
+
 export function getNameRecipes(title) {
   return async function (dispatch) {
     try {
@@ -35,26 +38,35 @@ export function getNameRecipes(title) {
     }
   };
 }
+
 export function getTypeOfDiet() {
   return async function (dispatch) {
-    const json = await axios.get("http://localhost:3001/types");
-    return dispatch({
-      type: GET_TYPE_OF_DIET,
-      payload: json.data,
-    });
-  };
+    try {
+      const json = await axios.get("http://localhost:3001/types");
+      return dispatch({
+        type: GET_TYPE_OF_DIET,
+        payload: json.data,
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 export function filterByDiets(payload) {
   return {
     type: FILTER_BY_DIETS,
     payload,
-  };
+  }
+
+
 }
+
+
 export function orderByLikes(payload) {
   return {
     type: ORDER_BY_LIKES,
     payload,
-  };
+  }
 }
 
 export function filterCreated(payload) {
@@ -92,3 +104,4 @@ export function postRecipe(payload) {
     return json;
   };
 }
+

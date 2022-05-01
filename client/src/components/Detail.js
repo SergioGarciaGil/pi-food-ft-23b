@@ -42,16 +42,12 @@ export default function Detail(props) {
                     <div className={style.puntuacion}>
                       <h2 className={style.score}>
                         <p>
-                          <h3>Score: {detailRecipe[0].aggregateLikes}</h3>
+                          Score: {detailRecipe[0].aggregateLikes}
                         </p>
                       </h2>
                       <h2>
                         <p>
-                          {
-                            <h3>
-                              Health Score: {detailRecipe[0].healthScore + " "}
-                            </h3>
-                          }
+                          Health Score: {detailRecipe[0].healthScore + " "}
                         </p>
                       </h2>
                     </div>
@@ -59,35 +55,35 @@ export default function Detail(props) {
                   <div className={style.fondoType}>
                     <h2 className={style.titleText}>
                       Types of diets:
-                      {/* <p>{detailRecipe[0].diets.join(", ")}</p> */}
+
                     </h2>
-                    <p>
+                    <h2 className={style.parrafoText}>
                       {!detailRecipe[0].createdInDb
                         ? detailRecipe[0].diets + " "
-                        : detailRecipe[0].diets.map((e) => e.name + ", ")}
-                    </p>
+                        : detailRecipe[0].diets.map((e, index) => <p key={index}>{e.name + ", "}</p>)}
+                    </h2>
                     <h2 className={style.titleText}>Type of Dish:</h2>
-                    <p>{detailRecipe[0].dishTypes}</p>
+                    <h2 className={style.parrafoText}>{detailRecipe[0].dishTypes}</h2>
                   </div>
                   <h2 className={style.titleText}>Summary:</h2>
-                  <p className={""}>
+                  <h2 className={style.parrafoText} >
                     {detailRecipe[0]
                       ? detailRecipe[0].summary.replace(/<[^>]*>?/g)
                       : "no summary"}
-                  </p>
+                  </h2>
                   <h2 className={style.titleText}>Instructions:</h2>
 
-                  <p>
+                  <h2 className={style.parrafoText}>
                     {detailRecipe[0].createdInDb //si la receta esta en la base de datos
                       ? detailRecipe[0].analyzedInstructions
                       : detailRecipe[0].analyzedInstructions.map((e) =>
-                          e.steps.map((e) => (
-                            <ul>
-                              <li key={e.number}>{e.step}</li>
-                            </ul>
-                          ))
-                        )}
-                  </p>
+                        e.steps.map((e, index) => (
+                          <ul key={index}>
+                            <li key={e.number}>{e.step}</li>
+                          </ul>
+                        ))
+                      )}
+                  </h2>
                 </div>
 
                 <Link to="/home">

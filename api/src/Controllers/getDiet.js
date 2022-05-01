@@ -5,17 +5,17 @@ const { API_KEY } = process.env;
 
 const getDiet = async (req, res) => {
   const result = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=5`
   );
 
   try {
     const types = await result.data.results.map((type) => type.diets);
-    const diets = types.flat();
-    const typeDiets = [...new Set(diets)];
+    const diets = types.flat();// 
+    const typeDiets = [...new Set(diets)];// 
 
     typeDiets.forEach((diet) => {
       Diet.findOrCreate({
-        where: { name: diet },
+        where: { name: diet }, // 
       });
     });
 

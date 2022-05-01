@@ -14,9 +14,9 @@ const getAllRecipes = async (req, res) => {
           .includes(title.toLowerCase().split(" ").join(""))
       );
 
-      recipeTitle.length != 0
+      recipeTitle.length !== 0
         ? res.status(200).json(recipeTitle)
-        : res.status(404).send("Recipe does not exist");
+        : res.status(404).send("Receta no existe");
     } else res.status(200).json(allData);
   } catch (err) {
     res.json({ err: message });

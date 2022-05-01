@@ -4,6 +4,7 @@ const createRecipe = async (req, res) => {
   const {
     title,
     summary,
+    dishTypes,
     aggregateLikes,
     healthScore,
     analyzedInstructions,
@@ -14,6 +15,7 @@ const createRecipe = async (req, res) => {
   const newRecipe = await Recipe.create({
     title,
     summary,
+    dishTypes,
     aggregateLikes,
     healthScore,
     analyzedInstructions,

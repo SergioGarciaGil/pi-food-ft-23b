@@ -77,3 +77,16 @@
   width: 200px;
   height: 30px
 }
+.typesDelete{
+  display: flex;
+  flex-direction:row; 
+}
+.error{
+  position: relative;
+  left: 90px;
+  color: red;
+  font-size: 12px;
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
